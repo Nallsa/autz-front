@@ -1,5 +1,5 @@
 const initialState = {
-  singUp: fasle,
+  singUp: false,
   error: null,
   token: null,
 };
