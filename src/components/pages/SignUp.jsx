@@ -1,7 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createUser } from '../../redux/features/application';
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+  const singUp = useSelector(state => state.singUp);
+  const error = useSelector(state => state.application.error);
+
   const [login, seLogin] = useState(null);
   const [password, sepassword] = useState(null);
 
@@ -11,9 +17,12 @@ export default function SignUp() {
   const handleChangePassword = e => {
     sepassword(e.target.value);
   };
-  const handleReg = e => {};
+  const handleReg = e => {
+    dispatch(createUser(login, password));
+  };
   return (
     <div>
+      {error}
       <input
         type='text'
         placeholder='type login'
@@ -26,7 +35,9 @@ export default function SignUp() {
         value={password}
         onChange={handleChangePassword}
       />
-      <button onClick={handleReg}>Reg</button>
+      <button disabled={singUp} onClick={handleReg}>
+        Reg
+      </button>
     </div>
   );
 }
